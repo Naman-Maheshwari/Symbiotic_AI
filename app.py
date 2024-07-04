@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 
 # Set page configuration
-st.set_page_config(page_title="Symbiotic AI Demo", layout="wide")
+st.set_page_config(page_title="Symbiotic AI Demo")
 
 # Title and description
 st.title("Symbiotic AI Project Demo")
