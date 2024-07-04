@@ -34,13 +34,14 @@ df = pd.DataFrame({
 })
 
 # Append the user's data
-df = df.append({
-    "Age": age,
-    "Activity Level": activity_level,
-    "Heart Rate": heart_rate,
-    "Steps": steps,
-    "Sleep Quality": sleep_quality
-}, ignore_index=True)
+user_data = pd.DataFrame({
+    "Age": [age],
+    "Activity Level": [activity_level],
+    "Heart Rate": [heart_rate],
+    "Steps": [steps],
+    "Sleep Quality": [sleep_quality]
+})
+df = pd.concat([df, user_data], ignore_index=True)
 
 # AI Algorithms
 st.header("AI Insights")
@@ -55,8 +56,8 @@ y = df["Sleep Quality"]
 model.fit(X, y)
 
 # Predict for the user's data
-user_data = np.array([[age, heart_rate, steps] + list(encoder.transform([[activity_level]]).toarray()[0])])
-predicted_sleep_quality = model.predict(user_data)[0]
+user_data_encoded = np.hstack(([[age, heart_rate, steps]], encoder.transform([[activity_level]]).toarray()))
+predicted_sleep_quality = model.predict(user_data_encoded)[0]
 st.write(f"Based on your data, your predicted sleep quality is: {predicted_sleep_quality:.2f}")
 
 # Neural Interface Simulation
